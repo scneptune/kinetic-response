@@ -1,4 +1,7 @@
-## FLUX React JS Boilerplate
+
+## FLUX React JS kinetic-response
+=======
+A first pass at stand alone commenting using a flux/react framework.
 
 Based on the architecture suggestions from Facebook, this boilerplate will help you deal with it. It has included the flux-react extension to React JS, [flux-react](https://github.com/christianalfoni/flux-react). 
 
@@ -22,3 +25,5 @@ Read more about FLUX over at [Facebook Flux](http://facebook.github.io/flux/) an
 * **styles/**: Where you put your css files
 * **specs/**: Where you put your test files
 * **gulpfile**: Gulp configuration
+
+
