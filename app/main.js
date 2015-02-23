@@ -1,4 +1,4 @@
 /** @jsx React.DOM */
 var React = require('react');
-var App = require('./App.js');
-React.render(<App/>, document.body);
+var CommentComponent = require('./components/commentcomponent.js');
+React.render(<CommentComponent url="http://localhost:8000/commentdata.json" pollInterval={10000000} />, document.getElementById('content'));
