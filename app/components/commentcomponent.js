@@ -1,6 +1,7 @@
 /** @jsx React.DOM **/
 
 var React = require('react');
+var commentStore = require('../stores/commentstore.js');
 var CommentList = require('./commentlist.js');
 var CommentForm = require('./commentform.js');
 var SortComments = require('./sortcomments.js')
@@ -8,6 +9,7 @@ var request = require('superagent');
 
 var CommentComponent = React.createClass({
 	componentWillMount: function () {
+		commentStore.getCommentsList();
 	},
 	componentWillUnmount: function () {
 	},
@@ -40,37 +42,21 @@ var CommentComponent = React.createClass({
 				this.setState({replyId: null});
 			}
 	},
-	getInitialState: function() {
-		return {
-			data: [], 
-			config: {
-				rating: true,
-				commentsNumber: 6,
-				fiveRateNumber: 30,
-				voteRateTotal: 45,
-				albumArt: 'http://hiphopdx.local/s/img/album_thumbnail.png',
-				pageNumber: 0,
-				postId: 1118,
-				sortBy: 'latest'
-			},
-			replyId: null
-		};
-	},
-	componentDidMount: function(){
-		this.loadCommentsFromServer();
-		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-	},
+	// componentDidMount: function(){
+	// 	this.loadCommentsFromServer();
+	// 	setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+	// },
 	render: function () {
-		var maincomment;
+		var stdComment;
 		if (!this.state.replyId ) {
-			maincomment = <CommentForm config={this.state.config} onCommentSubmit={this.handleCommentSubmit} replyId={this.state.replyId} />;
+			stdComment = <CommentForm onCommentSubmit={this.handleCommentSubmit} replyId={this.state.replyId} />;
 		}
 		return(
 			<div id="commentsWidget" className="comments-widget">
 			<button onClick={this.setReply}> Test</button>
 			<h4 className="comment-widget-title headingtooltip"><span className="comment-num">{this.state.config.commentsNumber}</span> Comments</h4>
 				<section id="respond">
-					{maincomment}
+					{stdComment}
 				</section>
 				<SortComments sortBy={this.state.config.sortBy} onSendSort={this.setConfig} />
 				<section id="comments" className="comment-feed" itemProp="comment">

@@ -14,7 +14,7 @@ CommentInteraction = React.createClass({
 			case 'flag':
 			break;
 			case 'reply':
-			(CommentId)
+			this.commentStore(CommentId)
 			break;
 			default:
 			console.log('no mutator');

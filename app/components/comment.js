@@ -7,6 +7,10 @@ CommentForm = require('./commentform.js')
 CommentInteractions = require('./commentinteractions.js');
 
 var Comment = React.createClass({
+	componentWillMount: function () {
+	},
+	componentWillUnmount: function () {
+	},
 	replies: function (comment) {
 		if (comment.hasOwnProperty('replies') && comment.replies.length > 0 ) {
 			var self = this;

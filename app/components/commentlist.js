@@ -2,13 +2,27 @@
 
 React = require('react');
 Comment = require('./comment.js');
+commentStore = require ('../stores/commentstore.js');
+
 var CommentList = React.createClass({
+	componentWillMount: function () {
+		
+	},
+	componentWillUnmount: function () {
+	},
 	handleCommentReply: function (replyIdVal){
 		this.props.handleReplyLink(replyIdVal);
 	},
+	getInitialState: function () {
+		return {
+			data: commentStore.getCommentList(),
+			replyId: commentStore.getReplyId(),
+			config: getConfig(),
+		}
+	},
 	render: function () {
 		var self = this,
-		commentNodes = this.props.data.map(function (comment, index) {
+		commentNodes = this.state.data.map(function (comment, index) {
 			return (
 				<Comment key={index} comment={comment} config={self.props.config} setCommmentReply={self.handleCommentReply} />
 			);

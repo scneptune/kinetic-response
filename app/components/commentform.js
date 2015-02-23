@@ -1,8 +1,6 @@
 // @jsx React.DOM
 
 React = require('react');
-moment = require('moment');
-
 RateBox = require('./ratebox.js')
 addons = require('classnames');
 
