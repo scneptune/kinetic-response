@@ -1,11 +1,156 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="main.css"/>
-  </head>
-  <body>
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-    <script src="vendors.js"></script>
-    <script src="main.js"></script>
-  </body>
+
+<head>
+    <link rel="stylesheet" href="http://hiphopdx.local/a/css/normalize.css" />
+    <link rel="stylesheet" href="http://hiphopdx.local/a/css/main.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic|PT+Sans+Narrow|Oswald:400,700">
+</head>
+
+<body>
+    <div class="wrap container" role="document">
+        <div class="layout row">
+            <div class="layout-inner">
+                <div class="col double" role="main" id="content">
+                    <div id="commentsWidget" class="comments-widget">
+                        <button> Test</button>
+                        <h4 class="comment-widget-title headingtooltip"><span class="comment-num">6</span><span> Comments</span></h4>
+                        <section id="respond">
+                            <form id="commentform" class="comment-form">
+                                <div class="ratebox">
+                                    <div class="rateitem">
+                                        <p>Rate this Album</p>
+                                        <ul class="rating">
+                                            <li class="star"><span>X</span>
+                                            </li>
+                                            <li class="star"><span>X</span>
+                                            </li>
+                                            <li class="star"><span>X</span>
+                                            </li>
+                                            <li class="star"><span>X</span>
+                                            </li>
+                                            <li class="star"><span>X</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <figure class="album-art"><img src="http://hiphopdx.local/s/img/album_thumbnail.png" width="100" height="100">
+                                        <figcaption class="vote-info">
+                                            <p><span class="count">30</span><span> have voted</span>
+                                            </p>
+                                            <p><span class="count">45</span><span> people gave it 5/5 </span>
+                                            </p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="form-fields withratebox">
+                                    <textarea name="comment" class="form-control" rows="6" aria-required="true" required="" placeholder="Join the discussion"></textarea>
+                                    <div class="form-row">
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <input type="text" id="author" class="form-control" aria-required="true" required="" name="author" placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <input type="email" id="email" class="form-control" aria-required="true" required="" name="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <input name="submit" type="submit" value="Submit" id="submit" class="comment-submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                        <div class="comment-sort clearfix" data-toggle="sorttext"><div class="active sortoption "><div class="sorttext "><span> </span><i class="fa fa-clock-o "></i></div><div class="sorttext ">Latest</div></div><div class="sortoption "><div class="sorttext "><span> </span><i class="fa fa-thumbs-up "></i></div><div class="sorttext ">Best</div></div><div class="sortoption "><div class="sorttext "><span> </span><i class="fa fa-thumbs-down "></i></div><div class="sorttext ">Worst</div></div></div><section id="comments " class="comment-feed " itemprop="comment">
+                            <ul class="media-list comment-list">
+                                <li class="comment-entry media comment depth-1 with-replies" id="#comment-1"><img src="http://img.thesun.co.uk/aidemitlum/archive/01766/led620_1766488a.jpg" class="avatar pull-left media-object userpic pull-left media-object userpic avatar-60" width="40" height="40" style="height:40px;">
+                                    <div class="comment-body media-body" 4>
+                                        <h4 class="username media-heading">John Bonham</h4>
+                                        <time datetime="2015-01-20T10:39:03"><a href="#comment-1"><span>on </span><span>January 20, 2015</span></a>
+                                        </time>
+                                        <p>I hate it when people slag us off. We had done three tours during 1970 and we finished off feeling we had just about had enough. We had done so much in that short space of time, we were drained.</p>
+                                        <div class="comment-interaction">
+                                            <div class="interaction pull-left"><a aria-label="Vote Up" class="upvote"><i class="fa fa-thumbs-up"></i></a><a aria-label="Vote Down" class="downvote"><i class="fa fa-thumbs-down"></i></a>
+                                            </div>
+                                            <div class="interaction pull-right"><a aria-label="Flag Comment" class="flag">Flag</a><a aria-label="Reply" class="comment-reply-link"><span> Reply </span><i class="fa fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="comment-list with-replies media media-list depth-2">
+                                        <li class="comment-entry media comment depth-2" id="#comment-10"><img src="http://static.comicvine.com/uploads/original/7/70882/1431409-26robertplant1.jpg" class="avatar pull-left media-object userpic pull-left media-object userpic avatar-60" width="40" height="40" style="height:40px;">
+                                            <div class="comment-body media-body">
+                                                <h4 class="username media-heading">Robert Plant</h4><span class="badge"><img src="/dxbug.png" class="small badge"></span>
+                                                <time datetime="2011-07-09T11:19:28"><a href="#comment-10"><span>on </span><span>July 9, 2011</span></a>
+                                                </time>
+                                                <p>You can't give up something you really believe in for financial reasons. If you die by the roadside - so be it. But at least you know you've tried. Ten minutes in the music scene was the equal of one hundred years outside of it.</p>
+                                                <div class="comment-interaction">
+                                                    <div class="interaction pull-left"><a aria-label="Vote Up" class="upvote"><i class="fa fa-thumbs-up"></i></a><a aria-label="Vote Down" class="downvote"><i class="fa fa-thumbs-down"></i></a>
+                                                    </div>
+                                                    <div class="interaction pull-right"><a aria-label="Flag Comment" class="flag">Flag</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="comment-entry media comment depth-2" id="#comment-9"><img src="https://s-media-cache-ak0.pinimg.com/originals/a4/92/7f/a4927f34f0dbbc02fa1cb66c38228efd.jpg" class="avatar pull-left media-object userpic pull-left media-object userpic avatar-60" width="40" height="40" style="height:40px;">
+                                            <div class="comment-body media-body">
+                                                <h4 class="username media-heading">Lindsey Buckingham</h4>
+                                                <time datetime="1985-04-21T07:09:36"><a href="#comment-9"><span>on </span><span>April 21, 1985</span></a>
+                                                </time>
+                                                <p>If you don't love me now, you will never love me again. We can still break the Chain. Can the Chain keep us together? (Running in the Shadows...)</p>
+                                                <div class="comment-interaction">
+                                                    <div class="interaction pull-left"><a aria-label="Vote Up" class="upvote"><i class="fa fa-thumbs-up"></i></a><a aria-label="Vote Down" class="downvote"><i class="fa fa-thumbs-down"></i></a>
+                                                    </div>
+                                                    <div class="interaction pull-right"><a aria-label="Flag Comment" class="flag">Flag</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="comment-entry media comment depth-1" id="#comment-2"><img src="http://cps-static.rovicorp.com/3/JPG_400/MI0000/014/MI0000014805.jpg" class="avatar pull-left media-object userpic pull-left media-object userpic avatar-60" width="40" height="40" style="height:40px;">
+                                    <div class="comment-body media-body">
+                                        <h4 class="username media-heading">Peter Frampton</h4>
+                                        <time datetime="2014-12-31T08:02:24"><a href="#comment-2"><span>on </span><span>December 31, 2014</span></a>
+                                        </time>
+                                        <p>The Longer You Love,The Longer You Live,The Stronger You Feel,The More You Can Give.</p>
+                                        <div class="comment-interaction">
+                                            <div class="interaction pull-left"><a aria-label="Vote Up" class="upvote"><i class="fa fa-thumbs-up"></i></a><a aria-label="Vote Down" class="downvote"><i class="fa fa-thumbs-down"></i></a>
+                                            </div>
+                                            <div class="interaction pull-right"><a aria-label="Flag Comment" class="flag">Flag</a><a aria-label="Reply" class="comment-reply-link"><span> Reply </span><i class="fa fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="comment-entry media comment depth-1" id="#comment-3"><img src="http://images6.fanpop.com/image/photos/32100000/-Pete-Townshend-rock-guitar-legends-32184727-200-200.jpg" class="avatar pull-left media-object userpic pull-left media-object userpic avatar-60" width="40" height="40" style="height:40px;">
+                                    <div class="comment-body media-body">
+                                        <h4 class="username media-heading">Pete Townshend</h4><span class="badge"><img src="/dxbug.png" class="small badge"></span>
+                                        <time datetime="2000-09-26T17:09:38"><a href="#comment-3"><span>on </span><span>September 26, 2000</span></a>
+                                        </time>
+                                        <p>Even modern English people are imperious, superior, ridden by class. All of the hypocrisy and the difficulties that are endemic in being British also make it an incredibly fertile place culturally. A brilliant place to live. Sad but true.</p>
+                                        <div class="comment-interaction">
+                                            <div class="interaction pull-left"><a aria-label="Vote Up" class="upvote"><i class="fa fa-thumbs-up"></i></a><a aria-label="Vote Down" class="downvote"><i class="fa fa-thumbs-down"></i></a>
+                                            </div>
+                                            <div class="interaction pull-right"><a aria-label="Flag Comment" class="flag">Flag</a><a aria-label="Reply" class="comment-reply-link"><span> Reply </span><i class="fa fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            </section>
+                        </div>
+                    </div>
+                    <aside class="sidebar col-md-4" role="sidebar">
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <script>
+        document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+        </script>
+        <script type="text/javascript" src="vendors.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+</body>
+
 </html>
