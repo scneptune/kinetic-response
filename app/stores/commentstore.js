@@ -1,8 +1,7 @@
 var flux = require('flux-react'),
-	actionComment = require('../actions/commentactions'),
-	configStore = require('./configstore.js'),
 	request = require('superagent'),
-	validate = require('validate.js');
+	validate = require('validate.js'),
+	actionComment = require('../actions/commentactions');
 
 var CommentStore = flux.createStore({
 	data: [],
@@ -24,12 +23,19 @@ var CommentStore = flux.createStore({
 		actionComment.validateComment,
 		actionComment.addReply,
 		actionComment.setReplyId,
-		actionComment.formErrors
+		actionComment.populateConfig,
+		actionComment.callCommentList
 	],
-	populateCommentList: function () {
-		self = this;
-		request.get(configStore.config.commentsUrl).set('Accept', 'application/json').end(function(res){
-			self.data.push(res.body)});
+	callCommentList: function () {
+		var InitedData,
+			self = this;
+		request.get(this.config.commentsUrl).set('Accept', 'application/json').end(
+			function (res) {
+			this.data = res.body;
+			this.emit('comment.loaded');
+		}.bind(this));
+	
+		// this.data = self.data;
 	},
 	populateConfig: function () {
 		//TODO: move the configs of the json out to this list. or we can technically grab it from the document as an embed json object. 
@@ -61,32 +67,42 @@ var CommentStore = flux.createStore({
 			return;
 		}
 	},
+	setReplyId: function (id) {
+		this.replyId = id;
+		this.emit('comment.replyset');
+	},
 	addComment: function (commentObj) {	
 	var comments = this.data;
 		this.errors = this.validateComment(commentObj);
 		this.emit('errors.updated');
 		// if (this.errors.code == 0) {
-			comments.push(commentObj);
+			comments.concat([commentObj]);
 			this.emit('comment.added');
 		// } 
 	},
 	addReply: function (commentObj, replyId) {
-		var comments= this.data,
+		var comments = this.data,
 			chosenReply = this.objectFindByKey(comments, 'id', replyId);
 		this.errors = this.validateComment(commentObj);
 		this.emit('errors.updated');
+		commentObj.id = 19;
 		chosenReply.replies.push(commentObj);
-		this.emit('comment.replyadded');
+		this.replyId = null;
+		this.emit('comment.added');
+		this.emit('comment.replyset');
 	},
 	exports: {
+		getInitialData: function () {
+			return this.callCommentList();
+		},
 		getCommentsList: function() {
 			return this.data;
 		},
 		getReplyId: function () {
 			return this.replyId;
 		},
-		getConfig : function () {
-		 return this.config; 
+		getConfig: function () {
+		 	return this.config; 
 		}
 	} 
 });
