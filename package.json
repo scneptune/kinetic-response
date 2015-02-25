@@ -1,8 +1,9 @@
 {
-  "name": "flux-react-boilerplate",
-  "version": "3.0.0",
+  "name": "kinetic-response",
+  "version": "0.0.1",
   "description": "React application boilerplate",
-  "author": "Christian Alfoni",
+"author": "SCNEPTUNE",
+"author": "Christian Alfoni",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^6.2.0",

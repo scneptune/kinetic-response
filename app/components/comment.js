@@ -3,23 +3,24 @@
 React = require('react');
 cx = require('classnames');
 prettyAgo = require('moment');
-CommentForm = require('./commentform.js')
+CommentForm = require('./commentform.js');
+commentStore = require('../stores/commentstore.js');
+action = require('../actions/commentactions.js');
 CommentInteractions = require('./commentinteractions.js');
 
 var Comment = React.createClass({
+	handleReplySubmit: function (comment) {
+		action.addReply(comment, this.props.comment.id);
+	},
 	replies: function (comment) {
 		if (comment.hasOwnProperty('replies') && comment.replies.length > 0 ) {
 			var self = this;
-		return (<ul className="comment-list with-replies media media-list depth-2">
-					{comment.replies.map(function(child) {
-				        return (<Comment key={child.id} config={self.props.config} comment={child} />);
-				   	})}	
-				</ul>);
+			return (<ul className="comment-list with-replies media media-list depth-2">
+						{comment.replies.map(function(child) {
+					        return (<Comment key={child.id} comment={child} />);
+					   	})}	
+					</ul>);
 		} 
-	},
-	setCommmentReply: function (newReplyComment) {
-		this.props.comment.replies.push(newReplyComment);
-		this.setState({data: this.props.comment,replyId: null});
 	},
 	render: function() {
 		var badge, replyForm,
@@ -33,13 +34,10 @@ var Comment = React.createClass({
 				{'with-replies': (comment.hasOwnProperty('replies') && comment.replies.length > 0)}
 			);
 
-		var allowReply = comment.hasOwnProperty('replies');
-		var repliesList = this.replies(comment);
-		if (this.state.replyId == comment.id) {
-			replyForm = (<CommentForm config={this.props.config} onCommentSubmit={this.setCommmentReply} replyId={comment.id} />);
+		var currentReplyID = commentStore.getReplyId();
+		if (currentReplyID == comment.id) {
+			replyForm = (<CommentForm onCommentSubmit={this.handleReplySubmit} replyId={comment.id} />);
 		}
-
-		$key = this.props.key;
 
 		if (comment.author.is_verified > 0) { badge = <span className="badge"><img src="/dxbug.png" className="small badge" /></span>}
 		return (
@@ -56,10 +54,10 @@ var Comment = React.createClass({
 			    		</a>
 			    	</time>
 				    <p>{comment.commentbody}</p>
-				    <CommentInteractions key={$key} commentId={comment.id} replyLink={allowReply} />
+				    <CommentInteractions key={this.props.key} commentId={comment.id} replyLink={comment.hasOwnProperty('replies')} />
 		    	</div>
 		    	{replyForm}
-        		{repliesList}
+        		{this.replies(comment)}
         	</li>
 		);
 	}

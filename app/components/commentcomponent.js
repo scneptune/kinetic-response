@@ -1,23 +1,13 @@
 /** @jsx React.DOM **/
 
-var React = require('react');
-var CommentList = require('./commentlist.js');
-var CommentForm = require('./commentform.js');
-var SortComments = require('./sortcomments.js')
-var request = require('superagent');
+var React = require('react'),
+	commentStore = require('../stores/commentstore.js'),
+ 	CommentForm = require('./commentform.js'),
+ 	Comment = require('./comment.js'),
+ 	SortComments = require('./sortcomments.js'),
+	request = require('superagent');
 
 var CommentComponent = React.createClass({
-	componentWillMount: function () {
-	},
-	componentWillUnmount: function () {
-	},
-	loadCommentsFromServer: function (){
-		var self = this;
-		//TODO: send params to the url
-		request.get(self.props.url).set('Accept', 'application/json').end(function(res){
-			self.setState({data: res.body});
-		});
-	},
 	handleCommentSubmit: function (comment) {
 		var comments = this.state.data;
 		console.log(comments);
@@ -25,56 +15,57 @@ var CommentComponent = React.createClass({
 		this.setState({data: newComments});
 		//TODO: submit to server and refresh
 	},
-	setConfig: function (sortOrder, key) {
-		prevConfig = this.state.config;
-		prevConfig[key] = sortOrder;
-		this.setState({
-			config: prevConfig
-		});
-		console.log(this.state.config);
-	},
-	setReply: function (replyIdVal) {
-		if (!this.state.replyId) {
-				this.setState({replyId: replyIdVal});
-			} else {
-				this.setState({replyId: null});
-			}
-	},
-	getInitialState: function() {
+	getInitialState: function () {
 		return {
-			data: [], 
-			config: {
-				rating: true,
-				commentsNumber: 6,
-				fiveRateNumber: 30,
-				voteRateTotal: 45,
-				albumArt: 'http://hiphopdx.local/s/img/album_thumbnail.png',
-				pageNumber: 0,
-				postId: 1118,
-				sortBy: 'latest'
-			},
-			replyId: null
+			data: [],
+			replyId: null,
+			config: commentStore.getConfig()
 		};
 	},
-	componentDidMount: function(){
-		this.loadCommentsFromServer();
-		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+	componentDidMount: function (){
+		commentStore.getInitialData();
+		// commentStore.addChangeListener(this.updateCommentList);
+	},
+	setReplyId: function () {
+		this.setState({
+			replyId: commentStore.getReplyId()
+		});
+	},
+	updateCommentList: function () {
+		this.setState({
+			data: commentStore.getCommentsList()
+		});
+	},
+	componentWillMount: function () {
+		commentStore.on('comment.loaded', this.updateCommentList);
+		commentStore.on('comment.added', this.updateCommentList);
+		commentStore.on('comment.replyset', this.setReplyId, this.updateCommentList);
+	},
+	componentWillUnmount: function () {
+		commentStore.off('comment.loaded', this.updateCommentList);
+		commentStore.off('comment.added', this.updateCommentList);
+		commentStore.off('comment.replyset', this.setReplyId, this.updateCommentList);
+		// commentStore.removeChangeListener(this.updateCommentList)
 	},
 	render: function () {
-		var maincomment;
-		if (!this.state.replyId ) {
-			maincomment = <CommentForm config={this.state.config} onCommentSubmit={this.handleCommentSubmit} replyId={this.state.replyId} />;
+		var stdComment;
+		if (!this.state.replyId) {
+			stdComment = <CommentForm onCommentSubmit={this.handleCommentSubmit} replyId={this.state.replyId} />;
 		}
 		return(
 			<div id="commentsWidget" className="comments-widget">
-			<button onClick={this.setReply}> Test</button>
 			<h4 className="comment-widget-title headingtooltip"><span className="comment-num">{this.state.config.commentsNumber}</span> Comments</h4>
 				<section id="respond">
-					{maincomment}
+					{stdComment}
 				</section>
-				<SortComments sortBy={this.state.config.sortBy} onSendSort={this.setConfig} />
+				<SortComments />
 				<section id="comments" className="comment-feed" itemProp="comment">
-					<CommentList config={this.state.config} data={this.state.data} handleReplyLink={this.setReply} />
+					<ul className="media-list comment-list" >
+					{this.state.data.map(function (comment, index) {
+						console.log(comment);
+						return (<Comment key={index} comment={comment} />);
+					})}
+					</ul>
 				</section>
 			</div>
 				);

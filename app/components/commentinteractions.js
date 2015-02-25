@@ -2,6 +2,7 @@
 
 React = require('react');
 commentStore = require('../stores/commentstore.js');
+action = require('../actions/commentactions.js');
 
 CommentInteraction = React.createClass({
 	handleClick: function (voteType) {
@@ -14,7 +15,7 @@ CommentInteraction = React.createClass({
 			case 'flag':
 			break;
 			case 'reply':
-			(CommentId)
+			action.setReplyId(CommentId);
 			break;
 			default:
 			console.log('no mutator');

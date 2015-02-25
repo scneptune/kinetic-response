@@ -2,6 +2,7 @@
 
 React = require('react');
 addons = require('classnames');
+commentStore = require('../stores/commentstore.js');
 
 var RateIcon = React.createClass({
 	render: function () {
@@ -17,7 +18,7 @@ var RateIcon = React.createClass({
 var RateBox = React.createClass({
 	getInitialState: function () {
 		return {
-			post_id: this.props.config.postId,
+			post_id: this.props.postId,
 			currentRating: this.props.currentRating || 0,
 			currentRating_hover: 0,
 			hovering: false
@@ -45,8 +46,6 @@ var RateBox = React.createClass({
 		if (this.props.onChange) {
 			this.props.onChange(currentRating);
 		}
-		//TODO hook up the rating to the remote postId
-		console.log(this.state);
 	},
 	render: function () {
 		var ratings =[];
@@ -56,6 +55,7 @@ var RateBox = React.createClass({
 			onMouseEnter = this.props.viewOnly ? f : this.onMouseEnter,
 			onClickRating = this.props.viewOnly ? f : this.onClickRating;
 		curhover = this.state.hovering;
+		var config = commentStore.getConfig();
 		for (var i = 1; i <= 5; ++i) {
 			rating = this.state['currentRating' + (curhover ? '_hover' : '')];
 			toggled = (i <= Math.round(rating) ? true : false);
@@ -78,10 +78,10 @@ var RateBox = React.createClass({
                     </ul>
                 </div>
                 <figure className="album-art">
-                    <img src={this.props.config.albumArt} width="100" height="100" />
+                    <img src={config.albumArt} width="100" height="100" />
                     <figcaption className="vote-info">
-                        <p> <span className="count">{this.props.config.fiveRateNumber}</span> have voted</p>
-                        <p> <span className="count">{this.props.config.voteRateTotal}</span> people gave it 5/5 </p>
+                        <p> <span className="count">{config.fiveRateNumber}</span> have voted</p>
+                        <p> <span className="count">{config.voteRateTotal}</span> people gave it 5/5 </p>
                     </figcaption>
                 </figure>
             </div>
