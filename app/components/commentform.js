@@ -3,11 +3,15 @@
 React = require('react');
 RateBox = require('./ratebox.js')
 addons = require('classnames');
+commentStore = require ('../stores/commentstore.js');
+action = require('../actions/commentactions.js');
 
 var CommentForm = React.createClass({
-	componentWillMount: function () {
-	},
-	componentWillUnmount: function () {
+	getInitialState: function () {
+		return {
+			config: commentStore.getConfig(),
+			errors: {}
+		};
 	},
 	handleSubmit: function (e) {
 		e.preventDefault();
@@ -21,7 +25,6 @@ var CommentForm = React.createClass({
 
 		//serialize our data as a comment object
 		newComment = {
-			'id': 14,
 			'commentbody': comment, 
 			'author': {
 					'name': author, 
@@ -31,16 +34,6 @@ var CommentForm = React.createClass({
 					}
 		};
 
-		//send it to the validator for errors
-		// this.validateSubmission(newComment);
-
-		if (this.props.replyId) {
-			newComment.replyTo = this.props.replyId;
-		} else {
-			newComment.replies = [];
-		}
-
-
 		//submit our model and reset the form
 		this.props.onCommentSubmit(newComment);
 		this.refs.comment.getDOMNode().value = '';
@@ -48,22 +41,28 @@ var CommentForm = React.createClass({
 		this.refs.email.getDOMNode().value = '';
 		return;
 	},
-
+	cancelReply: function () {
+		action.setReplyId(null);
+	},
 	render: function () {
 		var cx = addons;
 		var withOrWithoutRating = cx({
 			'form-fields': true,
-			'withratebox': this.props.config.rating,
-			'noratebox': !this.props.config.rating
+			'withratebox': this.state.config.rating,
+			'noratebox': !this.state.config.rating
 		});
-		var rateComponent;
-		if (this.props.config.rating) {
-			rateComponent = <RateBox config={this.props.config} />;
+		var rateComponent, closeAdd;
+		if (this.state.config.rating) {
+			rateComponent = <RateBox postId={this.state.config} />;
+		}
+		if (commentStore.getReplyId()) {
+			closeAdd = <a aria-label="Cancel Reply" className="cancel-comment-reply" onClick={this.cancelReply}><i className="fa fa-times-circle"></i></a>;
 		}
 		return (
 			<form id="commentform" noValidate className="comment-form" onSubmit={this.handleSubmit}>
 				{rateComponent}
 				<div className={withOrWithoutRating}>
+					{closeAdd}
 					<textarea name="comment" className="form-control" rows="6" aria-required="true" required placeholder="Join the discussion" ref="comment"></textarea>
 					<div className="form-row">
 						<div className="col-1">
