@@ -5,7 +5,7 @@
             "name": "John Bonham",
             "avatar": "http://img.thesun.co.uk/aidemitlum/archive/01766/led620_1766488a.jpg",
             "website": "",
-            "is_verified": false, 
+            "is_verified": 0, 
             "email": "jbonham@ledzeplin.net"
             },
         "commentbody": "I hate it when people slag us off. We had done three tours during 1970 and we finished off feeling we had just about had enough. \n We had done so much in that short space of time, we were drained.",
@@ -20,7 +20,7 @@
                 "is_verified": 10,
                 "email": "RPlant@gmail.com"
             },
-            "commentbody": "You can't give up something you really believe in for financial reasons. \n If you die by the roadside - so be it. But at least you know you've tried. \n Ten minutes in the music scene was the equal of one hundred years outside of it.",
+            "commentbody": "You can't give up something you really believe in for financial reasons. TEST TEST TEST \n If you die by the roadside - so be it. But at least you know you've tried. \n Ten minutes in the music scene was the equal of one hundred years outside of it.",
             "date": "2011-07-09T11:19:28"
         },
         {
@@ -29,7 +29,7 @@
                 "name": "Lindsey Buckingham",
                 "avatar": "https://s-media-cache-ak0.pinimg.com/originals/a4/92/7f/a4927f34f0dbbc02fa1cb66c38228efd.jpg",
                 "website": "http://en.wikipedia.org/wiki/Lindsey_Buckingham",
-                "is_verified": false,
+                "is_verified": 0,
                 "email": "lbuckingham@fleetwood.com"
             },
             "commentbody": "If you don't love me now, you will never love me again. We can still break the Chain. Can the Chain keep us together? (Running in the Shadows...)",
@@ -43,7 +43,7 @@
             "name": "Peter Frampton",
             "avatar": "http://cps-static.rovicorp.com/3/JPG_400/MI0000/014/MI0000014805.jpg",
             "website": "http://en.wikipedia.org/wiki/Peter_Frampton",
-            "is_verified": false,
+            "is_verified": 0,
             "email": "pete@framptoncomesalive.com"
         },
         "commentbody": "The Longer You Love,The Longer You Live,The Stronger You Feel,The More You Can Give.",
