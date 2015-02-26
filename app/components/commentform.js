@@ -2,7 +2,7 @@
 
 React = require('react');
 RateBox = require('./ratebox.js')
-addons = require('classnames');
+cx = require('classnames');
 commentStore = require ('../stores/commentstore.js');
 action = require('../actions/commentactions.js');
 
@@ -42,10 +42,10 @@ var CommentForm = React.createClass({
 		return;
 	},
 	cancelReply: function () {
+		//this closes out the form if it is attached to a comment by removing the ReplyId
 		action.setReplyId(null);
 	},
 	render: function () {
-		var cx = addons;
 		var withOrWithoutRating = cx({
 			'form-fields': true,
 			'withratebox': this.state.config.rating,
