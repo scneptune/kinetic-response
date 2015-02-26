@@ -4,7 +4,8 @@ module.exports = flux.createActions([
   'addComment',
   'addReply',
   'setReplyId',
-  'validateComment',
   'callCommentList',
-  'populateConfig'
+  'populateConfig',
+  'sortCommentList',
+  'voteComment'
 ]);

@@ -3,17 +3,15 @@
 var React = require('react'),
 	commentStore = require('../stores/commentstore.js'),
  	CommentForm = require('./commentform.js'),
+ 	action = require('../actions/commentactions.js')
  	Comment = require('./comment.js'),
  	SortComments = require('./sortcomments.js'),
 	request = require('superagent');
 
 var CommentComponent = React.createClass({
 	handleCommentSubmit: function (comment) {
-		var comments = this.state.data;
-		console.log(comments);
-		var newComments = comments.concat([comment]);
-		this.setState({data: newComments});
-		//TODO: submit to server and refresh
+		//simply take the new comment object and post it back to the addComment Action.
+		action.addComment(comment);
 	},
 	getInitialState: function () {
 		return {
@@ -23,8 +21,9 @@ var CommentComponent = React.createClass({
 		};
 	},
 	componentDidMount: function (){
+		// under normal circumstances this should be called with action.callCommentList(), 
+		// but for performance reasons it appears that the export getInitialData is slightly faster. 
 		commentStore.getInitialData();
-		// commentStore.addChangeListener(this.updateCommentList);
 	},
 	setReplyId: function () {
 		this.setState({
@@ -33,17 +32,26 @@ var CommentComponent = React.createClass({
 	},
 	updateCommentList: function () {
 		this.setState({
-			data: commentStore.getCommentsList()
+			data: commentStore.getCommentsList(),
+		});
+	},
+	updateConfig: function () {
+		this.setState({
+			config: commentStore.getConfig()
 		});
 	},
 	componentWillMount: function () {
+		//Eventwatcher2 actions inside the store for updates, on updates rerender.
 		commentStore.on('comment.loaded', this.updateCommentList);
 		commentStore.on('comment.added', this.updateCommentList);
+		commentStore.on('config.addedComment', this.updateConfig);
 		commentStore.on('comment.replyset', this.setReplyId, this.updateCommentList);
 	},
 	componentWillUnmount: function () {
+		//Eventwatcher 2 remove these compoents when the elements are unbound. 
 		commentStore.off('comment.loaded', this.updateCommentList);
 		commentStore.off('comment.added', this.updateCommentList);
+		commentStore.off('config.addedComment', this.updateConfig);
 		commentStore.off('comment.replyset', this.setReplyId, this.updateCommentList);
 		// commentStore.removeChangeListener(this.updateCommentList)
 	},
@@ -60,9 +68,8 @@ var CommentComponent = React.createClass({
 				</section>
 				<SortComments />
 				<section id="comments" className="comment-feed" itemProp="comment">
-					<ul className="media-list comment-list" >
+					<ul className="media-list comment-list">
 					{this.state.data.map(function (comment, index) {
-						console.log(comment);
 						return (<Comment key={index} comment={comment} />);
 					})}
 					</ul>
