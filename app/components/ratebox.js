@@ -36,7 +36,8 @@ var RateBox = React.createClass({
 	},
 	onMouseLeave: function (currentRating, e, id) {
 		this.setState({
-			hovering: false
+			hovering: false,
+			currentRating_hover: 0
 		});
 	},
 	onClickRating: function (currentRating, e, id) {
