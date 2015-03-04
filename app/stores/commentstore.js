@@ -14,7 +14,7 @@ var CommentStore = flux.createStore({
 		fiveRateNumber: 30,
 		voteRateTotal: 45,
 		albumArt: 'http://hiphopdx.local/s/img/album_thumbnail.png',
-		commentsUrl: 'http://localhost:8000/commentdata.json',
+		commentsUrl: 'http://hiphopdx.local/comment/215',
 		pageNumber: 0,
 		postId: 1118,
 	},
@@ -32,7 +32,7 @@ var CommentStore = flux.createStore({
 		//sortBy is also passed so we can reuse this with the sortIncator actions. 
 		var self = this, 
 			sortOrder = this.sortBy;
-		request.get(this.config.commentsUrl).query({'action': 'get'}).query({'sort': sortOrder}).set('Accept', 'application/json').end(
+		request.get(this.config.commentsUrl).query({'sort': sortOrder, 'action': 'get'}).set('Accept', 'application/json').end(
 			function (res) {
 			this.data = res.body;
 			this.assessCommentCount();
