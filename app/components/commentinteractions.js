@@ -50,7 +50,7 @@ CommentInteraction = React.createClass({
 	render: function () {
 		var replyMarkup;
 		if (this.props.replyLink) {
-			replyMarkup = <a aria-label="Reply" className="comment-reply-link" onClick={this.handleClick.bind(this, 'reply')}> Reply <i className="fa fa-angle-right"></i></a>;
+			replyMarkup = <a aria-label="Reply" className="comment-reply-link" onClick={this.handleClick.bind(this, 'reply')}> Reply <i className={cx('fa',{'fa-angle-right': !commentStore.getReplyId()}, {'fa-angle-down': commentStore.getReplyId()})}></i></a>;
 		}
 		return (
 			<div className="comment-interaction">
