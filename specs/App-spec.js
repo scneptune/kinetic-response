@@ -1,11 +1,19 @@
 var App = require('./../app/main.js');
+var React = require('react-addons');
 var TestUtils = require('react-addons').TestUtils;
 
-describe("App", function() {
 
-  it("should be wrapped with a div", function() {
-    var app = TestUtils.renderIntoDocument(App());
-    expect(app.getDOMNode().tagName).toEqual('DIV');
-  });
+describe("Kinetic-application", function () {
+
+	it("init test ", function(){
+		var appRaw = TestUtils.renderIntoDocument(App());
+		expect(app.state.data).toEqual([]);
+	})
+
+
+  // it("Should load comments on load", function () {
+  // 	var component = TestUtils.renderIntoDocument(CommentComponent());
+  // 	expect(component.state.data).toBe([]);
+  // });
 
 });

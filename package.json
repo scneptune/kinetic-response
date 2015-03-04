@@ -2,13 +2,13 @@
   "name": "kinetic-response",
   "version": "0.0.1",
   "description": "React application boilerplate",
-"author": "SCNEPTUNE",
-"author": "Christian Alfoni",
+  "author": "Christian Alfoni",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^6.2.0",
     "classnames": "^1.1.4",
     "flux-react": "^2.6.2",
+    "flux-react-dispatcher": "^1.2.4",
     "glob": "^4.0.6",
     "gulp": "^3.8.9",
     "gulp-concat": "^2.3.4",
@@ -21,6 +21,7 @@
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "^3.0.0",
+    "jest-cli": "^0.4.0",
     "moment": "^2.9.0",
     "phantomjs": "^1.9.12",
     "react-addons": "^0.9.1-deprecated",
@@ -33,6 +34,17 @@
   },
   "dependencies": {
     "flux-react": "^2.6.0",
-    "react": "^0.12.0"
+    "react": "^0.12.0",
+    "react-tools": "*"
+  },
+  "scripts": {
+    "start": "gulp",
+    "test": "jest"
+  },
+  "jest" : {
+    "scriptPreprocessor": "<rootDir>/node_modules/reactify",
+    "unmockedModulePathPatterns": [
+      "react"
+    ]
   }
 }
