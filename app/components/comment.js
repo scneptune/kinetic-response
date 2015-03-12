@@ -53,7 +53,7 @@ var Comment = React.createClass({
 			    			on {prettyAgo(comment.date).format('MMMM D, YYYY')}
 			    		</a>
 			    	</time>
-				    <p>{comment.commentbody}</p>
+				    <p>{comment.content}</p>
 				    <CommentInteractions key={this.props.key} commentId={comment.id} replyLink={comment.hasOwnProperty('replies')} />
 		    	</div>
 		    	{replyForm}

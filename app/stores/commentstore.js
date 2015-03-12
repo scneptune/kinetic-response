@@ -9,7 +9,7 @@ var CommentStore = flux.createStore({
 	errors: {},		
 	sortBy: 'latest',
 	config: {
-		rating: true,
+		rating: false,
 		commentsNumber: 0,
 		fiveRateNumber: 30,
 		voteRateTotal: 45,
@@ -47,7 +47,7 @@ var CommentStore = flux.createStore({
 		this.callCommentList();
 	},
 	voteComment: function (id, action) {
-		request.post(this.config.commentsUrl).type('application/json').send({'action': action}).send({'id': id}).end(
+		request.post(this.config.commentsUrl).withCredentials().type('application/json;charset=UTF-8').send({'id': id, 'action': action}).end(
 			function (res) {
 				console.log(res.body);
 		});
@@ -58,10 +58,16 @@ var CommentStore = flux.createStore({
 	},
 	addComment: function (commentObj) {	
 		console.log(this.data, 'before');
-		// this.errors = this.validateComment(commentObj);
-		this.emit('errors.updated');
+		this.validateComment(commentObj);
+		if (this.errors) {
+			this.emit('errors.updated');
+			return;
+		}
 		commentObj.id = 20;
 		commentObj.replies = [];
+		// request.post(this.config.commentsUrl).withCredentials().type('application/json;charset=UTF-8').send(commentObj).end(function (res) {
+		// 	console.log(res);
+		// })
 		// if (this.errors.code == 0) {
 		this.data.push(commentObj);
 	
@@ -73,8 +79,7 @@ var CommentStore = flux.createStore({
 	addReply: function (commentObj, replyId) {
 		var comments = this.data,
 			chosenReply = this.objectFindByKey(comments, 'id', replyId);
-		
-		this.errors = this.validateComment(commentObj);
+		this.validateComment(commentObj);
 		this.emit('errors.updated');
 		commentObj.id = 19;
 		chosenReply.replies.push(commentObj);
@@ -93,16 +98,11 @@ var CommentStore = flux.createStore({
 			'comment' : {presence: true},
 		};
 		var validateSubmission = validate({
-			'comment': commentObj.commentbody,
+			'comment': commentObj.comment,
 			'email': commentObj.author.email, 
 			'author': commentObj.author.name},
 		constraints);
-
-		//TODO Make error states 
-		if (validateSubmission) {
-			console.log(validateSubmission);
-			return;
-		}
+		this.errors = validateSubmission;
 	},
 	populateConfig: function () {
 		//TODO: move the configs of the json out to this list. or we can technically grab it from the document as an embed json object. 
@@ -118,8 +118,10 @@ var CommentStore = flux.createStore({
 	assessCommentCount: function () {
 		toCount = this.data;
 		baseCount = toCount.length;
-		for (var it = 0, len = this.data.length; it < len; it++ ) {
-			baseCount += toCount[it].replies.length;
+		for (var it = 0, len = baseCount; it < len; it++ ) {
+			if (toCount[it].replies) {
+				baseCount += toCount[it].replies.length;
+			}
 		}
 		this.config.commentsNumber = baseCount;
 		this.emit('config.addedComment');
