@@ -5,8 +5,7 @@ var React = require('react'),
  	CommentForm = require('./commentform.js'),
  	action = require('../actions/commentactions.js')
  	Comment = require('./comment.js'),
- 	SortComments = require('./sortcomments.js'),
-	request = require('superagent');
+ 	SortComments = require('./sortcomments.js');
 
 var CommentComponent = React.createClass({
 	handleCommentSubmit: function (comment) {
