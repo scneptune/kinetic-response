@@ -7,6 +7,8 @@
   "devDependencies": {
     "browserify": "^6.2.0",
     "classnames": "^1.1.4",
+    "eventemitter2": "^0.4.14",
+    "flux": "^2.0.1",
     "flux-react": "^2.6.2",
     "flux-react-dispatcher": "^1.2.4",
     "glob": "^4.0.6",
@@ -23,6 +25,7 @@
     "gulp-util": "^3.0.0",
     "jest-cli": "^0.4.0",
     "moment": "^2.9.0",
+    "object-assign": "^2.0.0",
     "phantomjs": "^1.9.12",
     "react-addons": "^0.9.1-deprecated",
     "reactify": "^0.15.2",
@@ -41,7 +44,7 @@
     "start": "gulp",
     "test": "jest"
   },
-  "jest" : {
+  "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/reactify",
     "unmockedModulePathPatterns": [
       "react"
